@@ -1,0 +1,23 @@
+{
+  "name": "coding-challenge",
+  "version": "1.0.0",
+  "description": "This repo contains the instructions and the data you need to complete the _9Spokes coding challenge_.  This challenge is not intended to be complex, but it is an opportunity for you to showcase your understanding and applying of good development practices.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Samclaxton/coding-challenge.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Samclaxton/coding-challenge/issues"
+  },
+  "homepage": "https://github.com/Samclaxton/coding-challenge#readme",
+  "dependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
