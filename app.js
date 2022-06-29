@@ -69,5 +69,69 @@ netProfit = totalrevenue - expenses;
 console.log(`Net Profit Figure: $${netProfit.toFixed()}`) // Note: Remove this line of code before final commit
 
 netProfitMargin = (netProfit/totalrevenue)*100
-console.log(`Net Profit Margin: ${netProfitMargin.toFixed()}%`)
+console.log(`Net Profit Margin: %${netProfitMargin.toFixed(1)}`)
 
+// v. Working Capital Ratio:
+
+// This is calculated dividing the assets by the liabilities creating a percentage value where assets are calculated by:
+
+// Adding the total_value from all records where the account_category is set to assets, the value_type is set to credit, and the account_type is one of current, bank or current_accounts_receiveable
+
+let assetsDebit = 0; 
+
+accounts.data
+    .filter(entry => (entry.account_category == 'assets' && entry.value_type == 'debit') && (entry.account_type == 'bank' || entry.account_type == 'current_accounts_receivable' || entry.account_type == 'current'))
+    .forEach(entry=> {
+        assetsDebit += entry.total_value;
+    });
+
+console.log(`Assets: $${assetsDebit}`)
+
+// Subtracting the total_value from all records where the account_category is set to assets, the value_type is set to credit, and the account_type is one of current, bank, or current_accounts_receivable
+
+let assetsCredit = 0;
+
+accounts.data
+    .filter(entry => (entry.account_category == 'assets' && entry.value_type == 'credit') && (entry.account_type == 'current' || entry.account_type == 'current' || entry.account_type == 'current_accounts_receivable'))
+    .forEach(entry=> {
+        assetsCredit += entry.total_value;
+    });
+
+    console.log(`Assets Credit: $${assetsCredit}`)
+
+    totalAssets = assetsDebit - assetsCredit; // Calculating Total Assets:
+    console.log(`Assets Total: $${totalAssets}`)
+
+// Calculating liabilities are calculated by:
+
+// adding the total_value from all records where the account_category is set to liability, the value_type is set to credit, and the account_type is one of current or current_accounts_payable
+
+let liabilitiesCredit = 0;
+
+accounts.data
+.filter(entry => (entry.account_category == 'liability' && entry.value_type == 'credit') && (entry.account_type == 'current' || entry.account_type == 'current_accounts_payable'))
+.forEach(entry=> {
+    liabilitiesCredit += entry.total_value;
+});
+
+console.log(`Liabilities Credit: ${liabilitiesCredit.toFixed()}`)
+
+// Subtracting the total_value from all records where the account_category is set to liability, the value_type is set to debit, and the account_type is one current or current_accounts_payable
+
+let liabilitiesDebit = 0;
+
+accounts.data
+.filter(entry => (entry.account_category == 'liability' && entry.value_type == 'debit') && (entry.account_type == 'current' || entry.account_type == 'current_accounts_payable'))
+.forEach(entry=> {
+    liabilitiesDebit += entry.total_value;
+});
+
+console.log(`Liabilities Debit: $${liabilitiesDebit}`)
+
+totalLiabilities = liabilitiesCredit - liabilitiesDebit; // Calculating Total Liabilities
+console.log(`Liabilities Total: $${totalLiabilities.toFixed()}`)
+
+// Calculating the Working Capital Ratio figure:
+
+workingCapitalRatio = (totalAssets/totalLiabilities) * 100
+console.log(`Working Capital Ratio: ${workingCapitalRatio.toFixed(2)}%`)
