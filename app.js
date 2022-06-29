@@ -61,6 +61,13 @@ accounts.data
   grossProfitMargin = (totalValueSales - COGS)/totalrevenue * 100
   console.log(`Gross Profit Margin: ${grossProfitMargin.toFixed()}%`) 
 
+// iv. Net Profit Margin:
+// This metric is calculated by subtracting the expenses value from the revenue value and dividing the remainder by revenue to calculate a percentage.
+// Net profit margin = Total Revenue - Total Expenses
 
+netProfit = totalrevenue - expenses;
+console.log(`Net Profit Figure: $${netProfit.toFixed()}`) // Note: Remove this line of code before final commit
 
+netProfitMargin = (netProfit/totalrevenue)*100
+console.log(`Net Profit Margin: ${netProfitMargin.toFixed()}%`)
 
