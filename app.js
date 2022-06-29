@@ -14,52 +14,43 @@ accounts.data
         totalRevenue += entry.total_value;
     });
 
-console.log(`Revenue: $${totalRevenue}`)
+console.log(`Revenue: $${totalRevenue.toLocaleString()}`)
 
 // ii. Calculate total expenses:
 // Extract "expense" entries, then sum to get total
 
-let expenses = 0;
+let expenseResult = 0;
 
 accounts.data
     .filter(entry => entry.account_category == 'expense')
     .forEach(entry=> {
-        expenses += entry.total_value;
+        expenseResult += entry.total_value;
     });
 
-console.log(`Expenses: $${expenses.toFixed()}`)
+let expenses = expenseResult.toLocaleString('en-US', {maximumFractionDigits: 0 })
+console.log(`Expenses: $${expenses}`)
 
 // iii. Calculate Gross Profit Margin:
 
 // Variable initialisation:
-
 let totalValueSales = 0;
 
-/* Step One:
- Extract "Total Sales" 
- */
-
+// Step One: Extract "Total Sales" 
 accounts.data
     .filter(entry => entry.account_type == 'sales' && entry.value_type == 'debit')
     .forEach(entry=> {
         totalValueSales += entry.total_value; 
     });
 
-console.log(`Total Value Sales: $${totalValueSales}`)
-
-/* Step Two:
-Divide figure by the revenue value calculated earlier to generate a percentage value.
-*/
-
+//Step Two: Divide figure by the revenue value calculated earlier to generate a percentage value.
   grossProfitMargin = (totalValueSales/totalRevenue) * 100
   console.log(`Gross Profit Margin: ${grossProfitMargin.toFixed(1)}%`) 
 
-// iv. Net Profit Margin:
-// This metric is calculated by subtracting the expenses value from the revenue value and dividing the remainder by revenue to calculate a percentage.
-// Net profit margin = Total Revenue - Total Expenses
+/* iv. Net Profit Margin:
+Net profit margin = Total Revenue - Total Expenses / remainder by revenue to calculate the percentage.
+*/
 
-netProfit = totalRevenue - expenses;
-console.log(`Net Profit Figure: $${netProfit.toFixed()}`) // Note: Remove this line of code before final commit
+netProfit = totalRevenue - expenseResult;
 
 netProfitMargin = (netProfit/totalRevenue)*100
 console.log(`Net Profit Margin: ${netProfitMargin.toFixed(1)}%`)
@@ -78,53 +69,44 @@ accounts.data
         assetsDebit += entry.total_value;
     });
 
-console.log(`Assets: $${assetsDebit}`)
-
 // Subtracting the total_value from all records where the account_category is set to assets, the value_type is set to credit, and the account_type is one of current, bank, or current_accounts_receivable
 
 let assetsCredit = 0;
 
-accounts.data
+ accounts.data
     .filter(entry => (entry.account_category == 'assets' && entry.value_type == 'credit') && (entry.account_type == 'current' || entry.account_type == 'current' || entry.account_type == 'current_accounts_receivable'))
     .forEach(entry=> {
         assetsCredit += entry.total_value;
     });
 
-    console.log(`Assets Credit: $${assetsCredit}`)
+    // Calculating Total Assets:
+    totalAssets = assetsDebit - assetsCredit; 
 
-    totalAssets = assetsDebit - assetsCredit; // Calculating Total Assets:
-    console.log(`Assets Total: $${totalAssets}`)
+    // Calculating liabilities are calculated by:
 
-// Calculating liabilities are calculated by:
-
-// adding the total_value from all records where the account_category is set to liability, the value_type is set to credit, and the account_type is one of current or current_accounts_payable
+    // Adding the total_value from all records where the account_category is set to liability, the value_type is set to credit, and the account_type is one of current or current_accounts_payable
 
 let liabilitiesCredit = 0;
 
 accounts.data
-.filter(entry => (entry.account_category == 'liability' && entry.value_type == 'credit') && (entry.account_type == 'current' || entry.account_type == 'current_accounts_payable'))
-.forEach(entry=> {
-    liabilitiesCredit += entry.total_value;
-});
-
-console.log(`Liabilities Credit: ${liabilitiesCredit.toFixed()}`)
+    .filter(entry => (entry.account_category == 'liability' && entry.value_type == 'credit') && (entry.account_type == 'current' || entry.account_type == 'current_accounts_payable'))
+    .forEach(entry=> {
+        liabilitiesCredit += entry.total_value;
+    });
 
 // Subtracting the total_value from all records where the account_category is set to liability, the value_type is set to debit, and the account_type is one current or current_accounts_payable
 
 let liabilitiesDebit = 0;
 
 accounts.data
-.filter(entry => (entry.account_category == 'liability' && entry.value_type == 'debit') && (entry.account_type == 'current' || entry.account_type == 'current_accounts_payable'))
-.forEach(entry=> {
-    liabilitiesDebit += entry.total_value;
-});
+    .filter(entry => (entry.account_category == 'liability' && entry.value_type == 'debit') && (entry.account_type == 'current' || entry.account_type == 'current_accounts_payable'))
+    .forEach(entry=> {
+        liabilitiesDebit += entry.total_value;
+    });
 
-console.log(`Liabilities Debit: $${liabilitiesDebit}`)
+    // Calculating Total Liabilities
+    totalLiabilities = liabilitiesCredit - liabilitiesDebit; 
 
-totalLiabilities = liabilitiesCredit - liabilitiesDebit; // Calculating Total Liabilities
-console.log(`Liabilities Total: $${totalLiabilities.toFixed()}`)
-
-// Calculating the Working Capital Ratio figure:
-
-workingCapitalRatio = (totalAssets/totalLiabilities) * 100
-console.log(`Working Capital Ratio: ${workingCapitalRatio.toFixed(2)}%`)
+    // Calculating the Working Capital Ratio figure:
+    workingCapitalRatio = (totalAssets/totalLiabilities) * 100
+    console.log(`Working Capital Ratio: ${workingCapitalRatio.toFixed(1)}%`)
