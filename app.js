@@ -43,17 +43,20 @@ accounts.data
     });
 
 //Step Two: Divide figure by the revenue value calculated earlier to generate a percentage value.
-  grossProfitMargin = (totalValueSales/totalRevenue) * 100
-  console.log(`Gross Profit Margin: ${grossProfitMargin.toFixed(1)}%`) 
+  function grossProfitMargin (totalValueSales, totalRevenue) {
+  return ((totalValueSales/totalRevenue) * 100)
+}
+
+console.log('Gross Profit Margin' + ' ' + grossProfitMargin(totalValueSales, totalRevenue).toFixed(1) + '%')
 
 /* iv. Net Profit Margin:
-Net profit margin = Total Revenue - Total Expenses / remainder by revenue to calculate the percentage.
+Net profit margin = (Total Revenue - Total Expenses) / by revenue to calculate the percentage.
 */
 
-netProfit = totalRevenue - expenseResult;
-
-netProfitMargin = (netProfit/totalRevenue)*100
-console.log(`Net Profit Margin: ${netProfitMargin.toFixed(1)}%`)
+function netProfit (totalRevenue, expenseResult) {
+    return ((totalRevenue - expenseResult)/totalRevenue * 100)
+}
+console.log('Net Profit Margin:' + ' ' + netProfit(totalRevenue, expenseResult).toFixed(1) + '%')
 
 // v. Working Capital Ratio:
 
@@ -108,5 +111,12 @@ accounts.data
     totalLiabilities = liabilitiesCredit - liabilitiesDebit; 
 
     // Calculating the Working Capital Ratio figure:
-    workingCapitalRatio = (totalAssets/totalLiabilities) * 100
-    console.log(`Working Capital Ratio: ${workingCapitalRatio.toFixed(1)}%`)
+    function workingCapitalRatio (totalAssets, totalLiabilities) {
+        return ((totalAssets/totalLiabilities) * 100)
+    }
+
+console.log('Working Capital Ratio:' + ' ' + workingCapitalRatio(totalAssets, totalLiabilities).toFixed(1) + '%')
+
+    module.exports = netProfit
+    module.exports = workingCapitalRatio
+    module.exports = grossProfitMargin
