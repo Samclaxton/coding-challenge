@@ -4,17 +4,17 @@ let data = fs.readFileSync('./data.json'); // Accesses the data.json file
 let accounts = JSON.parse(data); 
 
 // Variable initialisation
-let totalrevenue = 0;
+let totalRevenue = 0;
 
 // i. Calculate total revenue figure:
 // Extract "revenue" entries, then sum to get total
 accounts.data
     .filter(entry => entry.account_category == 'revenue')
     .forEach(entry=> {
-        totalrevenue += entry.total_value;
+        totalRevenue += entry.total_value;
     });
 
-console.log(`Revenue: $${totalrevenue}`)
+console.log(`Revenue: $${totalRevenue}`)
 
 // ii. Calculate total expenses:
 // Extract "expense" entries, then sum to get total
@@ -29,18 +29,18 @@ accounts.data
 
 console.log(`Expenses: $${expenses.toFixed()}`)
 
-/* iii. Calculate Gross Profit Margin:
-Gross Profit Margin = (Revenue - Cost of Goods Sold) / Revenue * 100
-*/
+// iii. Calculate Gross Profit Margin:
 
-// Variable initialisation
+// Variable initialisation:
+
 let totalValueSales = 0;
 
 /* Step One:
  Extract "Total Sales" 
-*/
+ */
+
 accounts.data
-    .filter(entry => entry.account_type == 'sales')
+    .filter(entry => entry.account_type == 'sales' && entry.value_type == 'debit')
     .forEach(entry=> {
         totalValueSales += entry.total_value; 
     });
@@ -48,28 +48,21 @@ accounts.data
 console.log(`Total Value Sales: $${totalValueSales}`)
 
 /* Step Two:
-Extract Cost of Goods Sold - All 'debit' transactions
+Divide figure by the revenue value calculated earlier to generate a percentage value.
 */
-let COGS = 0;
 
-accounts.data
-    .filter(entry => entry.value_type == 'debit')
-    .forEach(entry=> {
-        COGS += entry.total_value; 
-    });
-
-  grossProfitMargin = (totalValueSales - COGS)/totalrevenue * 100
-  console.log(`Gross Profit Margin: ${grossProfitMargin.toFixed()}%`) 
+  grossProfitMargin = (totalValueSales/totalRevenue) * 100
+  console.log(`Gross Profit Margin: ${grossProfitMargin.toFixed(1)}%`) 
 
 // iv. Net Profit Margin:
 // This metric is calculated by subtracting the expenses value from the revenue value and dividing the remainder by revenue to calculate a percentage.
 // Net profit margin = Total Revenue - Total Expenses
 
-netProfit = totalrevenue - expenses;
+netProfit = totalRevenue - expenses;
 console.log(`Net Profit Figure: $${netProfit.toFixed()}`) // Note: Remove this line of code before final commit
 
-netProfitMargin = (netProfit/totalrevenue)*100
-console.log(`Net Profit Margin: %${netProfitMargin.toFixed(1)}`)
+netProfitMargin = (netProfit/totalRevenue)*100
+console.log(`Net Profit Margin: ${netProfitMargin.toFixed(1)}%`)
 
 // v. Working Capital Ratio:
 
