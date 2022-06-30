@@ -58,11 +58,11 @@ function netProfit (totalRevenue, expenseResult) {
 }
 console.log('Net Profit Margin:' + ' ' + netProfit(totalRevenue, expenseResult).toFixed(1) + '%')
 
-// v. Working Capital Ratio:
+/* v. Working Capital Ratio:
+ This is calculated dividing the assets by the liabilities creating a percentage value where assets are calculated by:
 
-// This is calculated dividing the assets by the liabilities creating a percentage value where assets are calculated by:
-
-// Adding the total_value from all records where the account_category is set to assets, the value_type is set to credit, and the account_type is one of current, bank or current_accounts_receiveable
+Adding the total_value from all records where the account_category is set to assets, the value_type is set to credit, and the account_type is one of current, bank or current_accounts_receiveable
+*/
 
 let assetsDebit = 0; 
 
@@ -114,9 +114,7 @@ accounts.data
     function workingCapitalRatio (totalAssets, totalLiabilities) {
         return ((totalAssets/totalLiabilities) * 100)
     }
+    console.log('Working Capital Ratio:' + ' ' + workingCapitalRatio(totalAssets, totalLiabilities).toFixed(1) + '%')
 
-console.log('Working Capital Ratio:' + ' ' + workingCapitalRatio(totalAssets, totalLiabilities).toFixed(1) + '%')
-
-    module.exports = netProfit
     module.exports = workingCapitalRatio
     module.exports = grossProfitMargin
