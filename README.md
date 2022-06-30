@@ -1,4 +1,16 @@
-# 9Spokes Coding Challenge
+# 9Spokes Coding Challenge:
+
+Notes:
+
+As per the formatting instructions it mentions to prefix with a percentage sign, however there is conflicting information in that the example answer shows the percentage at the end of the figure so I have followed this format.
+
+Answers for the questions are below:
+
+Revenue: $32,431
+Expenses: $36,530
+Gross Profit Margin: 0.0%
+Net Profit Margin: -12.6%
+Working Capital Ratio: 118.8%
 
 ## Overview
 

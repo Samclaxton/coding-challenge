@@ -47,7 +47,7 @@ accounts.data
   return ((totalValueSales/totalRevenue) * 100)
 }
 
-console.log('Gross Profit Margin' + ' ' + grossProfitMargin(totalValueSales, totalRevenue).toFixed(1) + '%')
+console.log('Gross Profit Margin:' + ' ' + grossProfitMargin(totalValueSales, totalRevenue).toFixed(1) + '%')
 
 /* iv. Net Profit Margin:
 Net profit margin = (Total Revenue - Total Expenses) / by revenue to calculate the percentage.
